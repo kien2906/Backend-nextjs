@@ -1,0 +1,117 @@
+Bài Tập buổi 2
+
+
+// Bài 1: Đếm số user đang hoạt động;
+const users = [
+  { name: "A", active: true },
+  { name: "B", active: false },
+  { name: "C", active: true },
+];
+
+const countUser = users.filter((p) => p.active === true);
+
+console.log(countUser.length);
+
+//  Bài 2: Lấy tên từ danh sách user
+const user = [
+  { name: "An", age: 20 },
+  { name: "Bình", age: 25 },
+];
+
+const listUser = user.map((p) => p.name);
+
+console.log(listUser);
+
+//Bai 3 a: tính trung bình cộng số âm
+//         b: in ra danh sách các số âm lớn hơn giá trị tính ở ý a
+//         c: tìm số âm lớn nhất trong mảng
+
+const number = [2, -5, 6, -7, -4, 7, -1, -1];
+let sum = 0;
+let count = 0;
+const negativeNumber = number.map((p) => {
+  if (p < 0) {
+    sum += p;
+    count++;
+  }
+});
+const agv = sum / count;
+console.log(agv);
+
+for (let value of number) {
+  if (value > agv && value < 0) {
+    console.log(value);
+  }
+}
+ 
+const filterNegative = number.filter( p=> p< 0)
+const maxNegative= filterNegative.sort((a,b)=> b-a);
+console.log(maxNegative[0])
+
+
+
+// Bài 4: Đếm số đơn hàng theo trạng thái
+const orders = [
+  { status: "pending" },
+  { status: "completed" },
+  { status: "pending" },
+  { status: "cancelled" },
+];
+
+const countOrders = orders.reduce((sum, index) => {
+  if (sum[index.status]) {
+    sum[index.status] += 1;
+  } else {
+    sum[index.status] = 1;
+  }
+  return sum;
+}, {});
+
+console.log(countOrders);
+
+// Bài 5: Tìm đơn hàng có giá trị cao nhất
+
+const order = [
+  { id: 1, total: 500 },
+  { id: 2, total: 1200 },
+  { id: 3, total: 800 },
+];
+
+const Maxorders = order.reduce((sum, index) => {
+  if (index.total > sum.total) {
+    return index;
+  }
+
+  return sum;
+}, order[0]);
+
+console.log(Maxorders);
+//* Bài 6:
+const sales = [
+  { user: "An", product: "Áo", price: 100, qty: 2 },
+  { user: "Bình", product: "Giày", price: 300, qty: 1 },
+  { user: "An", product: "Quần", price: 200, qty: 1 },
+  { user: "Chi", product: "Áo", price: 100, qty: 5 },
+];
+
+const result = sales
+  .filter((acc, index, arr) => {
+    return index === arr.findIndex((p) => p.product === acc.product);
+  })
+  .map((p) => p.product);
+console.log(result);
+
+const totalQty = sales.reduce((sum, index) => {
+  if (sum[index.product]) {
+    sum[index.product] += index.qty;
+  } else {
+    sum[index.product] = index.qty;
+  }
+
+  return sum;
+}, {});
+
+console.log(totalQty)
+
+const totalMoney = sales.filter(p=> p.price > 200).map(p=> p.user);
+console.log(totalMoney)

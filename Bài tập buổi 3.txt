@@ -1,0 +1,391 @@
+Bài tập buổi 3 
+//Bài 1: cho mảng a và b
+const a = ["A", "B", "C"];
+const b = [1, 2, 3];
+
+const c = a.map((value, index) => ({
+  value: value + b[index],
+  id: b[index],
+}));
+
+console.log(c);
+
+//  Bài 2: cho mảng users sau
+const users = [
+  {
+    id: 1,
+    name: "A",
+    gender: "nam",
+  },
+  {
+    id: 2,
+    name: "B",
+    gender: "nữ",
+  },
+  {
+    id: 3,
+    name: "C",
+    gender: "nam",
+  },
+  {
+    id: 4,
+    name: "D",
+    gender: "nam",
+  },
+];
+
+const user = users
+  .filter((p) => p.gender === "nam")
+  .map((value) => ({
+    human: value.name + value.id,
+    gender: value.gender,
+  }));
+
+console.log(user);
+
+// Bài 3:
+const number = [2, -5, 6, -7, -4, 7, -1, -1];
+const negative = number.filter((value) => value < 0);
+// a: tính trung bình cộng số âm
+// b: in ra danh sách các số âm lớn hơn giá trị tính ở ý a
+// c: tìm số âm lớn nhất trong mảng
+
+const sum = negative.reduce((sum, index) => {
+  return sum + index;
+}, 0);
+
+const agv = sum / negative.length;
+console.log(agv);
+console.log(sum);
+
+const SortNegative = negative.sort((a, b) => b - a);
+
+console.log(SortNegative[0]);
+
+//Bài 4: Loại bỏ các phần tử trùng lặp trong mảng let numbers
+let numbers = [1, 2, 3, 4, 2, 5, 6, 1, 3];
+let arr = [];
+for (let i = 0; i < numbers.length; i++) {
+  if (!arr.includes(numbers[i])) {
+    arr.push(numbers[i]);
+  }
+}
+
+console.log(arr);
+
+//Bài 5: Viết 1 hàm nhận vào 1 mảng và 1 số nguyên dương n
+// sau đó trả về mảng mới chứa các mảng con có kích thước n.
+let mangSo = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+function tachMangCao(mangSo, n) {
+  const res = [];
+  for (let i = 0; i < mangSo.length; i += n) {
+    let tach = mangSo.slice(i, i + n);
+
+    res.push(tach);
+  }
+  return res;
+}
+
+console.log(tachMangCao(mangSo, 3));
+// Bài 6: đếm số lượng phần tử trong mảng
+const lang = ["php", "js", "c++", "java", "php", "js", "php"];
+
+const dem = lang.reduce((value, index) => {
+  if (value[index]) {
+    value[index] += 1;
+  } else {
+    value[index] = 1;
+  }
+
+  return value;
+}, {});
+
+console.log(dem);
+//Bài 7: Lấy tên từ danh sách user
+const listname = [
+  { name: "An", age: 20 },
+  { name: "Bình", age: 25 },
+];
+
+const listnew = listname.map((p) => p.name);
+
+console.log(listnew);
+
+//  Bài 8: Tìm số âm đầu tiên
+const am = [5, 2, -3, -8];
+
+const sort = am.sort((a, b) => b - a).filter((p) => p < 0);
+
+console.log(sort[0]);
+//Bài 9:
+const orders = [
+  { id: 1, user: "An", total: 200 },
+  { id: 2, user: "Bình", total: 500 },
+  { id: 3, user: "An", total: 300 },
+];
+
+const tong = orders.reduce((sum, index) => {
+  if (sum[index.user]) {
+    sum[index.user] += index.total;
+  } else {
+    sum[index.user] = index.total;
+  }
+
+  return sum;
+}, {});
+
+console.log(tong);
+
+const maxUser = Object.entries(tong).reduce((max, item) => {
+  return item[1] > max[1] ? item : max;
+});
+
+const tongAn = orders
+  .filter((item) => item.user === "An")
+  .reduce((sum, item) => {
+    return sum + item.total;
+  }, 0);
+
+console.log(tongAn);
+console.log(maxUser);
+
+//Bài 10
+const sales = [
+  { user: "An", product: "Áo", price: 100, qty: 2 },
+  { user: "Bình", product: "Giày", price: 300, qty: 1 },
+  { user: "An", product: "Quần", price: 200, qty: 1 },
+  { user: "Chi", product: "Áo", price: 100, qty: 5 },
+];
+
+const check = sales.reduce((sum, index) => {
+  const ext = sum.some((p) => p === index.product);
+
+  if (!ext) {
+    sum.push(index.product);
+  }
+
+  return sum;
+}, []);
+
+console.log(check);
+
+const demqtl = sales.reduce((sum, index) => {
+  if (sum[index.product]) {
+    sum[index.product] += index.qty;
+  } else {
+    sum[index.product] = index.qty;
+  }
+  return sum;
+}, {});
+
+console.log(demqtl);
+
+const tongtien = sales.filter((p) => p.price > 200).map((p) => p.user);
+console.log(tongtien);
+// Bài 11: Tìm sản phẩm đắt nhất
+const products = [
+  { name: "A", price: 100 },
+  { name: "B", price: 300 },
+  { name: "C", price: 200 },
+];
+
+const maxproduct = products.reduce((sum, index) => {
+  return index.price > sum.price ? index : sum;
+}, products[0]);
+
+console.log(maxproduct);
+
+// Bài 12: Đếm số user đang hoạt động;
+const userss = [
+  { name: "A", active: true },
+  { name: "B", active: false },
+  { name: "C", active: true },
+];
+const statusActive = userss.filter((p) => p.active === true).length;
+
+console.log(statusActive);
+
+//Bài 13: Tìm sản phẩm bán chạy nhất
+const orderss = ["iphone", "iphone", "samsung", "iphone", "xiaomi", "xiaomi"];
+
+const result = orderss.reduce((sum, item) => {
+  if (sum[item]) {
+    sum[item] += 1;
+  } else {
+    sum[item] = 1;
+  }
+
+  return sum;
+}, {});
+const sorts = Object.entries(result).reduce((sum, index) => {
+  return index[1] > sum[1] ? index : sum;
+});
+
+console.log(sorts);
+
+// Bài 14: Tìm số xuất hiện nhiều nhất
+const numberss = [1, 1, 2, 2, 2, 3];
+
+const dem1 = numberss.reduce((sum, index) => {
+  if (sum[index]) {
+    sum[index] += 1;
+  } else {
+    sum[index] = 1;
+  }
+  return sum;
+}, {});
+
+const arrs = Object.entries(dem1);
+let max = 0;
+let value = "";
+for (let i = 0; i < arrs.length; i++) {
+  if (arrs[i][1] > max) {
+    max = arrs[i][1];
+    value = arrs[i][0];
+  }
+}
+console.log("Số xuất hiện nhiều nhất:", value);
+console.log("Số lần: ", max);
+//Bài 15: Tìm đơn hàng có giá trị cao nhất
+
+const order = [
+  { id: 1, total: 500 },
+  { id: 2, total: 1200 },
+  { id: 3, total: 800 },
+];
+
+const timhangmax = order.reduce((sum, index) => {
+  return index.total > sum.total ? index : sum;
+}, order[0]);
+
+console.log(timhangmax);
+
+// Bài 16: Đếm số đơn hàng theo trạng thái
+const orderrs = [
+  { status: "pending" },
+  { status: "completed" },
+  { status: "pending" },
+  { status: "cancelled" },
+];
+
+const k = orderrs.reduce((sum, index) => {
+  if (sum[index.status]) {
+    sum[index.status] += 1;
+  } else {
+    sum[index.status] = 1;
+  }
+  return sum;
+}, {});
+
+console.log(k); // Bài 17: Đếm tổng số học sinh
+const classes = [
+  {
+    name: "A",
+    students: ["An", "Bình"],
+  },
+  {
+    name: "B",
+    students: ["Cường"],
+  },
+];
+let count = 0;
+const dems = classes.reduce((sum, index) => {
+  const student = index.students.reduce((sum, i) => {
+    return sum + 1;
+  }, 0);
+
+  return sum + student;
+}, 0);
+console.log(dems);
+
+/**
+ * 1: Kiểm tra xem một số có phải là số nguyên tố lớn không. Nếu có, in ra số nguyên tố lớn nhất trong khoảng từ 1 đến
+  số đó.
+  Input: 20
+  Output: 19
+  Input: 15
+  Output: 13
+ */
+
+const nguyento = [];
+
+for (let i = 2; i <= 20; i++) {
+  let isPrime = true;
+  for (let j = 2; j <= Math.sqrt(i); j++) {
+    if (i % j == 0) {
+      isPrime = false;
+      break;
+    }
+  }
+  if (isPrime) {
+    nguyento.push(i);
+  }
+}
+console.log(nguyento);
+// * Bài 2: Tìm tất cả các cặp số (a, b) sao cho a và b là số nguyên tố và a + b = n, với n là số nguyên dương cho trước.
+function checknt(n) {
+  if (n < 2) return false;
+
+  for (let i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+
+
+let n = 20;
+
+for (let i = 2; i <= n / 2; i++) {
+  let j = n - i;
+  if (checknt(i) && checknt(j) && i + j === n) {
+    console.log(i, j);
+  }
+}
+
+
+//Bài 3: Cho một mảng nums gồm các số nguyên, hãy trả về số lượng các số trong mảng đó có số chữ số chẵn.
+function checkchan(n) {
+  let count = 0;
+  while (n > 0) {
+  
+  count++
+    n = Math.floor(n / 10);
+  }
+
+  return count % 2 === 0 ? true : false;
+}
+
+
+const nums = [12, 345, 2, 6, 7896];
+let dem2 = 0;
+
+for (let values of nums) {
+  if (checkchan(values)) {
+    dem2++;
+  }
+}
+
+console.log(dem2);
+
+ //Bài 4: cho mảng number:
+const arrNumber = [1, 4, 44, 64, 55, 24, 32, 55, 19, 17, 74, 22, 23];
+
+const evenNumber= [];
+const oldNumber= [];
+
+
+for(let values of arrNumber){
+  if(values %2 ===0){
+    evenNumber.push(values)
+  }else{
+   oldNumber.push(values)
+  }
+}
+
+console.log(evenNumber)
+console.log(oldNumber)

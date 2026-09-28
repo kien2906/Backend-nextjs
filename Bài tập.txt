@@ -1,0 +1,67 @@
+Bài tập 
+const usersDB = [
+  { id: 1, name: "Nguyen Van A", email: "a@gmail.com" },
+  { id: 2, name: "Tran Thi B", email: "b@gmail.com" },
+];
+
+function getUserByIdCallback(id, callback) {
+  setTimeout(() => {
+    const user = usersDB.find((p) => p.id === id);
+
+    if (!user) {
+      callback("Không tìm th́ây user!", null);
+    } else {
+      callback(null, user);
+    }
+  }, 1000);
+}
+
+getUserByIdCallback(1, (error, user) => {
+  if (error) {
+    console.error("Bài 1 - Ḱêt qua ̉ mong múôn (Báo lỗi):", error);
+  } else {
+    console.log("User:", user);
+  }
+});
+
+getUserByIdCallback(99, (error, user) => {
+  if (error) {
+    console.error("Bài 1 - Ḱêt qua ̉ mong múôn (Báo lỗi):", error);
+  } else {
+    console.log("User:", user);
+  }
+});
+
+function getUserIDPromise(id) {
+  return new Promise((resolve, reject) => {
+    const user = usersDB.find((p) => p.id === id);
+
+    if (user) {
+      resolve(user);
+    } else {
+      reject("Không tìm thấy user");
+    }
+  });
+}
+
+getUserIDPromise(2)
+  .then((data) => console.log(data))
+  .catch((e) => console.log("Lỗi", e));
+
+getUserIDPromise(404)
+  .then((user) => console.log("User:", user))
+  .catch((error) =>
+    console.error("Bài 2 - Ḱêt qua ̉ mong múôn (Báo lỗi):", error),
+  );
+
+async function runApp(id) {
+  try {
+    const res = await getUserIDPromise(id);
+    console.log("Bài 3 - Ḱêt qua ̉ tìm th́ây:", res);
+  } catch (error) {
+    console.log("Bài 3 - Bắt được lỗi trên hệ thống", error);
+  }
+}
+
+runApp(1);
+runApp(99)

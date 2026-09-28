@@ -1,0 +1,266 @@
+//Bai 1
+class Student {
+  private name: string;
+  private age: number;
+  private grade: string;
+
+  constructor(name: string, age: number, grade: string) {
+    ((this.name = name), (this.age = age), (this.grade = grade));
+  }
+
+  display(): void {
+    console.log(
+      `Tên : ${this.name} , Age : ${this.age} , Grade ${this.grade} `,
+    );
+  }
+}
+
+const student1 = new Student("Tiến", 20, "10");
+
+student1.display();
+//==================
+
+
+//Bai 2
+class BankAccount {
+  protected accountNUmber: number;
+  protected balance: number;
+
+  constructor(accountNumber: number, balance: number) {
+    this.accountNUmber = accountNumber;
+    this.balance = balance;
+  }
+  deposit(amout: number): void {
+    if (amout <= 0) {
+      console.log("Số tiền nạp phải lớn hơn 0");
+      return;
+    }
+
+    this.balance += amout;
+    console.log(`Nạp tiền thành công`);
+    console.log(`Số dư hiện tại: ${this.balance}`);
+  }
+
+  withdraw(amout: number): void {
+    if (amout > this.balance) {
+      console.log("Số dư tài khoản không đủ");
+      return;
+    }
+    this.balance -= amout;
+
+    console.log("Rút tiền thành công");
+    console.log(`Số dư còn lại: ${this.balance}`);
+  }
+
+  getbalance(): number {
+    return this.balance;
+  }
+}
+
+class SavingAccount extends BankAccount {
+  private interestRate: number;
+
+  constructor(accountNumber: number, balance: number, interestRate: number) {
+    super(accountNumber, balance);
+    this.interestRate = interestRate;
+  }
+
+  calculateInterest(): number {
+    return (this.balance * this.interestRate) / 100;
+  }
+}
+
+const s2 = new SavingAccount(10, 10, 1);
+s2.deposit(2);
+s2.withdraw(1);
+console.log(s2.getbalance());
+console.log(s2.calculateInterest());
+
+///============================
+
+
+//Bai 3
+class Book {
+  private title: string;
+  private author: string;
+  private ISBN: string;
+
+  constructor(title: string, author: string, ISBN: string) {
+    this.title = title;
+    this.author = author;
+    this.ISBN = ISBN;
+  }
+
+  get getTitle(): string {
+    return this.title;
+  }
+
+  set setTitle(title: string) {
+    this.title = title;
+  }
+
+  get getAuthor(): string {
+    return this.author;
+  }
+
+  set setAuthor(author: string) {
+    this.author = author;
+  }
+
+  get getISBN(): string {
+    return this.ISBN;
+  }
+
+  set setISBN(ISBN: string) {
+    this.ISBN = ISBN;
+  }
+}
+
+class Libary {
+  private book: Book[];
+
+  constructor() {
+    this.book = [];
+  }
+
+  addBook(book: Book): void {
+    this.book.push(book);
+  }
+
+  removeBook(ISBN: string): void {
+    const exit = this.book.find((p) => p.getISBN === ISBN);
+
+    if (exit) {
+      this.book = this.book.filter((item) => item.getISBN !== ISBN);
+    } else {
+      console.log("not found");
+    }
+  }
+
+  findBook(title: string): Book | undefined {
+    return this.book.find((item) => item.getTitle === title);
+  }
+  showBooks(): void {
+    this.book.forEach((item) => {
+      console.log(`${item.getTitle} - ${item.getAuthor} - ${item.getISBN}`);
+    });
+  }
+}
+const book1 = new Book("Clean Code", "Robert", "001");
+const book2 = new Book("Java Basic", "John", "002");
+const book3 = new Book("TypeScript", "David", "003");
+
+const library = new Libary();
+
+library.addBook(book1);
+library.addBook(book2);
+library.addBook(book3);
+
+library.showBooks();
+library.removeBook("002");
+
+console.log("Sau khi xóa:");
+library.showBooks();
+
+const found = library.findBook("Clean Code");
+
+if (found) {
+  console.log("Tìm thấy:", found.getTitle);
+}
+//================================
+
+//Bai 4
+abstract class Shape {
+  abstract calculateArea(): number;
+}
+
+class Rectangle extends Shape {
+  private width: number;
+  private height: number;
+
+  constructor(width: number, height: number) {
+    super();
+    this.width = width;
+    this.height = height;
+  }
+  calculateArea(): number {
+    return this.width * this.height;
+  }
+}
+
+class Circle extends Shape {
+  private radius: number;
+
+  constructor(radius: number) {
+    super();
+    this.radius = radius;
+  }
+
+  calculateArea(): number {
+    return Math.PI * this.radius * this.radius;
+  }
+}
+
+const rectangle = new Rectangle(5, 10);
+
+console.log("Diện tích Rectangle:");
+console.log(rectangle.calculateArea());
+
+const circle = new Circle(5);
+
+console.log("Diện tích Circle:");
+console.log(circle.calculateArea().toFixed(2));
+
+
+
+
+
+
+//===========================
+//Bai 5
+class Employee {
+  protected name: string;
+  protected position: string;
+  protected salary: number;
+
+  constructor(name: string, position: string, salary: number) {
+    this.name = name;
+    this.position = position;
+    this.salary = salary;
+  }
+    getDetails(): void {
+    console.log(`${this.name}, ${this.position}, ${this.salary}`);
+  }
+}
+class Manager extends Employee {
+  constructor(name: string, position: string, salary: number) {
+    super(name, position, salary);
+  }
+
+  getDetails(): void {
+    console.log(
+      `Thông tin Manager:${this.name},${this.position},${this.salary}`,
+    );
+  }
+}
+
+class Developer extends Employee {
+  constructor(name: string, position: string, salary: number) {
+    super(name, position, salary);
+  }
+
+  getDetails(): void {
+    console.log(
+      `Thông tin Manager:${this.name},${this.position},${this.salary}`,
+    );
+  }
+}
+
+const employees: Employee[] = [
+  new Manager("An", "Project Manager", 20000000),
+  new Developer("Bình", "Frontend Developer", 15000000),
+  new Developer("Cường", "Backend Developer", 18000000),
+];
+employees.map((employee) => {
+  employee.getDetails();
+});
