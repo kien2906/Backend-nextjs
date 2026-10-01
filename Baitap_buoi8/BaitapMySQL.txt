@@ -1,0 +1,40 @@
+
+use baitap;
+
+
+CREATE TABLE students (
+  Student_ID INT PRIMARY KEY ,
+  name VARCHAR(100),
+  age INT,
+  major VARCHAR(50)
+
+);
+ 
+INSERT INTO students (Student_ID, name, age, major)
+VALUES
+(1, 'Kien', 20, 'Software Engineering'),
+(2, 'Nam', 21, 'Information Technology'),
+(3, 'Lan', 19, 'Business Administration'),
+(4, 'Minh', 22, 'Computer Science'),
+(5, 'Hoa', 20, 'Graphic Design'),
+(6, 'Tuan', 21, 'Software Engineering'),
+(7, 'Linh', 19, 'Digital Marketing'),
+(8, 'Huy', 23, 'Information Technology'),
+(9, 'Trang', 20, 'Business Administration'),
+(10, 'Phuc', 22, 'Computer Science');
+
+SELECT * FROM students;
+
+SELECT name FROM students as s WHERE s.age >= 20 && s.age <=22; 
+
+
+DELETE FROM students WHERE Student_ID IN (9,10);
+
+SELECT * FROM students;
+
+
+UPDATE students
+SET major="CNTT" WHERE Student_ID= 1;
+
+SELECT * FROM students;
+
